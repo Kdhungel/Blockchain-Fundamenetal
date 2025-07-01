@@ -58,13 +58,10 @@ def verify_chain():
     Returns:
         bool: True if blockchain is valid, False otherwise.
     """
-    for index, block in enumerate(blockchain):
-        if index == 0:
-            # Skip genesis block, no previous block to verify
-            continue
-        # Check if current block's previous block matches the actual previous block
-        if block[0] != blockchain[index - 1]:
-            print(f"⚠️ Blockchain tampered at block {index + 1}!")
+    for block_index in range(1, len(blockchain)):  # start from 1
+        # Check if the previous block referenced in current block matches actual previous block
+        if blockchain[block_index][0] != blockchain[block_index - 1]:
+            print(f"⚠️ Blockchain tampered at block {block_index + 1}!")
             return False
     return True
 
@@ -74,9 +71,12 @@ def display_blockchain():
     """
     for i, block in enumerate(blockchain):
         print(f"Block {i + 1}: {block[0]} -> {block[1]}")
+    else:
+        print('-' * 20)
 
+waiting_for_input = True
 # Main program loop - runs until user exits or blockchain integrity is compromised
-while True:
+while waiting_for_input:
     choice = get_user_action()
 
     match choice:
@@ -93,8 +93,12 @@ while True:
             display_blockchain()
         case 3:
             # Exit the program
+            display_blockchain()
             print("Exiting...")
-            break
+            waiting_for_input = False
         case _:
+            display_blockchain()
             # Invalid choice input from user
             print("Invalid choice. Please try again.")
+else:
+    print("User Left")
