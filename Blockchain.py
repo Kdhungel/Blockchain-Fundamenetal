@@ -2,17 +2,24 @@
 blockchain = []
 
 def get_previous_block():
-    """Returns the last block in the blockchain, or None if the blockchain is empty."""
+    """
+    Returns the last block in the blockchain, or None if the blockchain is empty.
+
+    Returns:
+        list or None: The last block in the blockchain or None if empty.
+    """
     if len(blockchain) == 0:
         return None
     return blockchain[-1]  # Return the last block
 
 def add_block(amount, previous_block):
-    """Adds a new block to the blockchain.
+    """
+    Adds a new block to the blockchain.
 
     Args:
         amount (float): The transaction amount to store in this block.
-        previous_block (list or None): The previous block in the chain, or None if this is the first block.
+        previous_block (list or None): The previous block in the chain,
+            or None if this is the first block (genesis block).
     """
     # If this is the first block (genesis), create a dummy previous block
     if previous_block is None:
@@ -22,11 +29,21 @@ def add_block(amount, previous_block):
     blockchain.append([previous_block, amount])
 
 def get_transaction_amount():
-    """Prompts the user to enter a transaction amount and returns it as a float."""
+    """
+    Prompts the user to enter a transaction amount.
+
+    Returns:
+        float: The transaction amount entered by the user.
+    """
     return float(input("Enter transaction amount: "))
 
 def get_user_action():
-    """Prompts the user to select an option and returns the selected choice as an integer."""
+    """
+    Prompts the user to select an action from the menu.
+
+    Returns:
+        int: The user's selected action.
+    """
     print("\nPlease choose an option:")
     print("1. Add a new transaction")
     print("2. View blockchain")
@@ -34,34 +51,31 @@ def get_user_action():
     return int(input("Enter your choice: "))
 
 def verify_chain():
-    """Checks if the blockchain is valid by making sure each block points to the correct previous block."""
-    block_index = 0
-    is_valid = True
+    """
+    Verifies the integrity of the blockchain by ensuring each block points
+    correctly to the previous block.
 
-    # Loop through each block in the blockchain
-    for block in blockchain:
-        # Skip the first block since it has no previous block to verify
-        if block_index == 0:
-            block_index += 1
+    Returns:
+        bool: True if blockchain is valid, False otherwise.
+    """
+    for index, block in enumerate(blockchain):
+        if index == 0:
+            # Skip genesis block, no previous block to verify
             continue
-
-        # Check if the previous block stored in the current block matches the actual previous block in the list
-        elif block[0] == blockchain[block_index - 1]:
-            is_valid = True  # This block is valid, continue checking
-        else:
-            is_valid = False  # Blockchain is broken, previous block does not match
-            break
-
-        block_index += 1  # Move to next block index
-
-    return is_valid
+        # Check if current block's previous block matches the actual previous block
+        if block[0] != blockchain[index - 1]:
+            print(f"⚠️ Blockchain tampered at block {index + 1}!")
+            return False
+    return True
 
 def display_blockchain():
-    """Prints all blocks in the blockchain showing the previous block and the amount."""
+    """
+    Prints all blocks in the blockchain showing the previous block and the amount.
+    """
     for i, block in enumerate(blockchain):
         print(f"Block {i + 1}: {block[0]} -> {block[1]}")
 
-# Main program loop - runs until user exits or blockchain is invalid
+# Main program loop - runs until user exits or blockchain integrity is compromised
 while True:
     choice = get_user_action()
 
@@ -70,6 +84,10 @@ while True:
             # Add a new transaction block with user input amount
             amount = get_transaction_amount()
             add_block(amount, get_previous_block())
+            # Verify blockchain after adding a new block
+            if not verify_chain():
+                print("Blockchain integrity compromised! Exiting...")
+                break
         case 2:
             # Display all blocks in the blockchain
             display_blockchain()
@@ -80,8 +98,3 @@ while True:
         case _:
             # Invalid choice input from user
             print("Invalid choice. Please try again.")
-
-    # Verify if blockchain is valid after each operation
-    if not verify_chain():
-        print("Invalid transaction amount. Please try again.")
-        break
