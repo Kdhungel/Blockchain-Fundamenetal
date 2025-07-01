@@ -24,13 +24,13 @@ This is a great learning tool for understanding how blockchains work at a fundam
 1. Clone the repository:
 
     ```bash
-    git clone https://github.com/yourusername/your-repo-name.git
+    git clone https://github.com/Kdhungel/Blockchain-Fundamenetal.git
     ```
 
 2. Navigate into the project directory:
 
     ```bash
-    cd your-repo-name
+    cd Blockchain-Fundamenetal
     ```
 
 3. Run the Python script:
