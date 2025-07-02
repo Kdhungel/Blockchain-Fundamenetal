@@ -1,4 +1,5 @@
 import json
+MINING_REWARD = 10
 
 genesis_block = {
     "previous_hash": '0',
@@ -12,6 +13,7 @@ blockchain = [genesis_block]
 
 open_transactions = []
 owner = "Kdhungel"
+participants = {"Kdhungel"}
 
 
 def get_previous_block():
@@ -25,7 +27,7 @@ def get_previous_block():
         return None
     return blockchain[-1]  # Return the last block
 
-def add_block(recipient, sender = owner, amount = 1.0):
+def add_transaction(recipient, sender = owner, amount = 1.0):
     """
     Adds a new block to the blockchain.
 
@@ -34,29 +36,62 @@ def add_block(recipient, sender = owner, amount = 1.0):
         :recipient: The recipient address.
         :amount: Amount to add.
     """
+    sender_balance = get_balance(sender)
+    if sender_balance < amount:
+        print(f"❌ Transaction failed: {sender} has only {sender_balance:.2f} available.")
+        return False
+
     transaction = {
        "sender": sender,
        "recipient": recipient,
        "amount": amount,
    }
     open_transactions.append(transaction)
+    participants.add(recipient)
+    participants.add(sender)
+
 
     # Add a new block which stores the previous block and the current amount
 def get_hash(block):
     return '-'.join([str(block[key]) for key in block])
 
+def calculate_balance_details(participant):
+    sent = sum(tx['amount'] for block in blockchain for tx in block['transactions'] if tx['sender'] == participant)
+    received = sum(tx['amount'] for block in blockchain for tx in block['transactions'] if tx['recipient'] == participant)
+    return sent, received
+
+def get_balance(participant):
+    sent, received = calculate_balance_details(participant)
+    return received - sent
+
+def get_balance_details(participant):
+    sent, received = calculate_balance_details(participant)
+    print(f"\n📊 Balance Report for {participant}")
+    print(f"🟢 Total Received: {received:.2f}")
+    print(f"🔴 Total Sent: {sent:.2f}")
+    print(f"✅ Available Balance: {received - sent:.2f}")
 
 def mine_block():
+    if not open_transactions:
+        print("⛏️ No open transactions. Mining only reward...")
+
     last_block = get_previous_block()
     hashed_block = get_hash(last_block)
+    reward_transaction = {
+        "sender": "MINING",
+        "recipient": owner,
+        "amount": MINING_REWARD,
+    }
 
     block = {
         "previous_hash": hashed_block,
         "index": len(blockchain),
-        "transactions": open_transactions,
+        "transactions": open_transactions[:] + [reward_transaction] ,
     }
     blockchain.append(block)
     open_transactions.clear()
+    print("✅ Block mined successfully!")
+    get_balance_details(owner)
 
 
 def get_transaction_amount():
@@ -66,9 +101,10 @@ def get_transaction_amount():
     Returns:
         float: The transaction amount entered by the user.
     """
-    tx_recipient = input("Who is your transaction recipient? ")
-    tx_amount =  float(input("Enter transaction amount: "))
-    return tx_amount, tx_recipient
+    tx_sender = input("Who is sending? (default: Kdhungel): ") or owner
+    tx_recipient = input("Who is the recipient? ")
+    tx_amount = float(input("Enter transaction amount: "))
+    return tx_sender, tx_recipient, tx_amount
 
 
 def get_user_action():
@@ -83,7 +119,11 @@ def get_user_action():
     print("2. Mine a block")
     print("3. View blockchain")
     print("4. Manipulate blockchain")
-    print("5. Exit")
+    print("5. View Participants")
+    print("6. View Balance")
+    print("7. Verify Transactions")
+    print("8. Exit")
+
     return int(input("Enter your choice: "))
 
 def verify_chain():
@@ -105,6 +145,14 @@ def verify_chain():
             return False
     return True
 
+def verify_transaction(tx):
+    sender_balance = get_balance(tx['sender'])
+    return sender_balance >= tx['amount']
+
+def verify_transactions():
+    return all(verify_transaction(tx) for tx in open_transactions)
+
+
 def display_blockchain():
     """
     Prints all blocks in the blockchain showing the previous block and the amount.
@@ -122,11 +170,15 @@ while waiting_for_input:
     match choice:
         case 1:
             # Add a new transaction block with user input amount
-            tx_data = get_transaction_amount()
-            amount , recipient = tx_data
-            add_block(recipient, amount=amount)
-            print(open_transactions)
-            mine_block()
+            tx_sender, recipient, amount = get_transaction_amount()
+
+            if add_transaction(recipient, sender=tx_sender, amount=amount):
+                print(open_transactions)
+                if not verify_transactions():
+                    print("❌ Invalid transactions detected. Fix them before mining.")
+                    continue
+                mine_block()
+                get_balance_details(owner)
 
         case 2:
             mine_block()
@@ -135,13 +187,21 @@ while waiting_for_input:
             # Display all blocks in the blockchain
             display_blockchain()
         case 4:
-            if len(blockchain) >= 1:
-                blockchain[0] = {
-                    "previous_hash": get_hash(blockchain[0]),
-                    "index": len(blockchain),
-                    "transactions": open_transactions,
-                }
+            if len(blockchain) >= 2:
+                blockchain[1]['transactions'] = [{"sender": "Hacker", "recipient": "Evil", "amount": 9999}]
         case 5:
+            print(participants)
+        case 6:
+            participant = input("Enter participant name: ")
+            get_balance_details(participant)
+
+        case 7:
+            if verify_transactions():
+                print("✅ All open transactions are valid.")
+            else:
+                print("❌ Some open transactions are invalid!")
+
+        case 8:
             # Exit the program
             display_blockchain()
             print("Exiting...")
@@ -158,6 +218,3 @@ while waiting_for_input:
 
 else:
     print("User Left")
-
-
-
