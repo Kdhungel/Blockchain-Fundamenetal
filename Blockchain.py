@@ -1,5 +1,6 @@
 import json
 from functools import reduce
+import hashlib
 
 # Constants
 MINING_REWARD = 10
@@ -65,7 +66,7 @@ def get_hash(block):
     Returns:
         str: Hash string of the block.
     """
-    return '-'.join([str(block[key]) for key in block])
+    return hashlib.sha256(json.dumps(block, sort_keys=True).encode()).hexdigest()
 
 def calculate_balance_details(participant):
     """
