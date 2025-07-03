@@ -1,0 +1,68 @@
+{
+    "chain": [
+        {
+            "previous_hash": "0",
+            "index": 0,
+            "transactions": [],
+            "proof": 100
+        },
+        {
+            "previous_hash": "14b5201dd964e2b5bd3c81f0573512918cbd145a7993da457d4753bb744c3341",
+            "index": 1,
+            "transactions": [
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10
+                }
+            ],
+            "proof": 2643
+        },
+        {
+            "previous_hash": "07813a77d1b17fa79c8fbd7c23dc2242748f80b125678eb66ce67553e0803f7b",
+            "index": 2,
+            "transactions": [
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10
+                }
+            ],
+            "proof": 51381
+        },
+        {
+            "previous_hash": "a191fde45a5ef129ac815565b096192b2742b2005819081641072f7f15018426",
+            "index": 3,
+            "transactions": [
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10
+                }
+            ],
+            "proof": 38801
+        },
+        {
+            "previous_hash": "ef489822dc4e6c2cc25d21b2e451a2780925191848cf9810c20aaa0a27b1384c",
+            "index": 4,
+            "transactions": [
+                {
+                    "sender": "Kdhungel",
+                    "recipient": "Kritish",
+                    "amount": 20.0
+                },
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10
+                }
+            ],
+            "proof": 106695
+        }
+    ],
+    "open_transactions": [],
+    "participants": [
+        "Kdhungel",
+        "Kritish"
+    ]
+}
