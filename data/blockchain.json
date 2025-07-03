@@ -1,14 +1,15 @@
 {
     "chain": [
         {
-            "previous_hash": "0",
             "index": 0,
+            "previous_hash": "0",
             "transactions": [],
-            "proof": 100
+            "proof": 100,
+            "time": "1751562123.3104918003"
         },
         {
-            "previous_hash": "14b5201dd964e2b5bd3c81f0573512918cbd145a7993da457d4753bb744c3341",
             "index": 1,
+            "previous_hash": "7976542b6317f54b51e67a126679f13a2ee9f6a1be84efb3c4d55f268e3e8574",
             "transactions": [
                 {
                     "sender": "MINING",
@@ -16,40 +17,17 @@
                     "amount": 10
                 }
             ],
-            "proof": 2643
+            "proof": 8532,
+            "time": "1751562125.0096340179"
         },
         {
-            "previous_hash": "07813a77d1b17fa79c8fbd7c23dc2242748f80b125678eb66ce67553e0803f7b",
             "index": 2,
-            "transactions": [
-                {
-                    "sender": "MINING",
-                    "recipient": "Kdhungel",
-                    "amount": 10
-                }
-            ],
-            "proof": 51381
-        },
-        {
-            "previous_hash": "a191fde45a5ef129ac815565b096192b2742b2005819081641072f7f15018426",
-            "index": 3,
-            "transactions": [
-                {
-                    "sender": "MINING",
-                    "recipient": "Kdhungel",
-                    "amount": 10
-                }
-            ],
-            "proof": 38801
-        },
-        {
-            "previous_hash": "ef489822dc4e6c2cc25d21b2e451a2780925191848cf9810c20aaa0a27b1384c",
-            "index": 4,
+            "previous_hash": "3c83142fca89fb913d7817663fc24e41eeddf62cae1e5e3bdd4238cb87f2cfee",
             "transactions": [
                 {
                     "sender": "Kdhungel",
                     "recipient": "Kritish",
-                    "amount": 20.0
+                    "amount": 9.0
                 },
                 {
                     "sender": "MINING",
@@ -57,12 +35,13 @@
                     "amount": 10
                 }
             ],
-            "proof": 106695
+            "proof": 41487,
+            "time": "1751562259.2257010937"
         }
     ],
     "open_transactions": [],
     "participants": [
-        "Kdhungel",
-        "Kritish"
+        "Kritish",
+        "Kdhungel"
     ]
 }
