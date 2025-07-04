@@ -5,24 +5,24 @@
             "previous_hash": "0",
             "transactions": [],
             "proof": 100,
-            "time": "1751562123.3104918003"
+            "time": "1751570251.8079481125"
         },
         {
             "index": 1,
-            "previous_hash": "7976542b6317f54b51e67a126679f13a2ee9f6a1be84efb3c4d55f268e3e8574",
+            "previous_hash": "78bbeda60b938a17b4706c36c30017274a702a232ae12a73e04fc14b2ac6a3f1",
             "transactions": [
                 {
                     "sender": "MINING",
                     "recipient": "Kdhungel",
-                    "amount": 10
+                    "amount": 10.0
                 }
             ],
-            "proof": 8532,
-            "time": "1751562125.0096340179"
+            "proof": 94512,
+            "time": "1751570257.4251909256"
         },
         {
             "index": 2,
-            "previous_hash": "3c83142fca89fb913d7817663fc24e41eeddf62cae1e5e3bdd4238cb87f2cfee",
+            "previous_hash": "b7e5a8da5228724fc0853e13ec6e35dc2b72df6c025d68b9141bd1ef0ba55c58",
             "transactions": [
                 {
                     "sender": "Kdhungel",
@@ -32,16 +32,69 @@
                 {
                     "sender": "MINING",
                     "recipient": "Kdhungel",
-                    "amount": 10
+                    "amount": 10.0
                 }
             ],
-            "proof": 41487,
-            "time": "1751562259.2257010937"
+            "proof": 24468,
+            "time": "1751570288.8234858513"
+        },
+        {
+            "index": 3,
+            "previous_hash": "f4fd41bc5af7201b6f4ae71c05971862716b45f0a57f6abb27b3e014f071ae15",
+            "transactions": [
+                {
+                    "sender": "Kdhungel",
+                    "recipient": "Moyush",
+                    "amount": 10.0
+                },
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10.0
+                }
+            ],
+            "proof": 18701,
+            "time": "1751611517.0887308121"
+        },
+        {
+            "index": 4,
+            "previous_hash": "939671b50a140fad5cef5aae3eff5f0e0d91edacbf53e9f53f91cd6a23789fec",
+            "transactions": [
+                {
+                    "sender": "Kdhungel",
+                    "recipient": "Kritish",
+                    "amount": 10.0
+                },
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10.0
+                }
+            ],
+            "proof": 17235,
+            "time": "1751613902.0431768894"
+        },
+        {
+            "index": 5,
+            "previous_hash": "6a5939352ecc5557c838a900bfba770aba6fa1add225f7de2dabd450b554f71f",
+            "transactions": [
+                {
+                    "sender": "MINING",
+                    "recipient": "Kdhungel",
+                    "amount": 10.0
+                }
+            ],
+            "proof": 34788,
+            "time": "1751613921.1436769962"
         }
     ],
     "open_transactions": [],
     "participants": [
         "Kritish",
-        "Kdhungel"
-    ]
+        "Kdhungel",
+        "Moyush"
+    ],
+    "mined_blocks_count": {
+        "Kdhungel": 5
+    }
 }
